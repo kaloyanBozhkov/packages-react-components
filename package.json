@@ -1,6 +1,6 @@
 {
   "name": "@koko420/react-components",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Some of my favourite components in 1 place",
   "type": "module",
   "main": "./dist/index.cjs",
