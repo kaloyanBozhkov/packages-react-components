@@ -1,5 +1,6 @@
-import React, { useEffect, useRef } from "react";
-import { View, Animated, StyleSheet } from "react-native";
+import * as React from "react";
+import { useEffect, useMemo } from "react";
+import { View, Animated, StyleSheet, type ViewStyle } from "react-native";
 
 type Modifier = "primary" | "primaryBordered" | "secondary" | "tertiary";
 type Size = "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
@@ -8,7 +9,7 @@ export type DotsLoaderProps = {
   modifier?: Modifier;
   size?: Size;
   dotsBg?: string;
-  style?: object;
+  style?: ViewStyle;
 };
 
 const COLORS = {
@@ -33,22 +34,27 @@ export const DotsLoader = ({
   dotsBg,
   style,
 }: DotsLoaderProps) => {
-  const dot1Scale = useRef(new Animated.Value(0)).current;
-  const dot2Position = useRef(new Animated.Value(0)).current;
-  const dot3Position = useRef(new Animated.Value(0)).current;
-  const dot4Scale = useRef(new Animated.Value(1)).current;
+  const [dot1Scale, dot2Position, dot3Position, dot4Scale] = useMemo(
+    () => [
+      new Animated.Value(0),
+      new Animated.Value(0),
+      new Animated.Value(0),
+      new Animated.Value(1),
+    ],
+    []
+  );
 
   useEffect(() => {
     const scaleInAnimation = Animated.loop(
       Animated.sequence([
         Animated.timing(dot1Scale, {
           toValue: 1,
-          duration: 300,
+          duration: 600,
           useNativeDriver: true,
         }),
         Animated.timing(dot1Scale, {
           toValue: 0,
-          duration: 300,
+          duration: 0,
           useNativeDriver: true,
         }),
       ])
@@ -88,12 +94,12 @@ export const DotsLoader = ({
       Animated.sequence([
         Animated.timing(dot4Scale, {
           toValue: 0,
-          duration: 300,
+          duration: 600,
           useNativeDriver: true,
         }),
         Animated.timing(dot4Scale, {
           toValue: 1,
-          duration: 300,
+          duration: 0,
           useNativeDriver: true,
         }),
       ])
@@ -180,6 +186,8 @@ export const DotsLoader = ({
   );
 };
 
+DotsLoader.displayName = "DotsLoader";
+
 const styles = StyleSheet.create({
   container: {
     position: "relative",
@@ -212,4 +220,3 @@ const styles = StyleSheet.create({
 });
 
 export default DotsLoader;
-
