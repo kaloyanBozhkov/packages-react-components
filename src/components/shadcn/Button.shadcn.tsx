@@ -2,7 +2,7 @@ import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 
-import { cn } from "../../utils/utils";
+import { twMerge } from "tailwind-merge";
 import DotsLoader from "../atoms/DotsLoader";
 
 const buttonVariants = cva(
@@ -52,7 +52,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const content = isLoading ? <DotsLoader modifier="primary" /> : children;
     return (
       <Comp
-        className={cn(buttonVariants({ variant, size, className }))}
+        className={twMerge(buttonVariants({ variant, size, className }))}
         ref={ref}
         {...props}
         // eslint-disable-next-line @typescript-eslint/no-explicit-any

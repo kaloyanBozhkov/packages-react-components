@@ -9,7 +9,7 @@ import {
   useState,
 } from "react";
 import { HexColorPicker, RgbColorPicker } from "react-colorful";
-import { cn } from "../../utils/utils";
+import { twMerge } from "tailwind-merge";
 import { Popover, PopoverContent, PopoverTrigger } from "./Popover.shadcn";
 import { Button } from "./Button.shadcn";
 import { Input } from "./Input.shadcn";
@@ -110,7 +110,7 @@ const ColorPicker = forwardRef<
         <PopoverTrigger asChild disabled={disabled} onBlur={onBlur}>
           <Button
             {...props}
-            className={cn("block", className)}
+            className={twMerge("block", className)}
             name={name}
             onClick={() => {
               setOpen(true);
